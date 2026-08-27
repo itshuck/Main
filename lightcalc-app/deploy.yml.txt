@@ -1,0 +1,19 @@
+name: Deploy to zima-led.ru
+on:
+  push:
+    branches: [main]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Upload lightcalc-app via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.188.127.239.141 }}
+          username: ${{ secrets.user1596776 }}
+          password: ${{ secrets.HRrW8crKD2r4N6k }}
+          local-dir: lightcalc-app/          # что заливаем
+          server-dir: public_html/lightcalc-app/  # куда (уточните имя корня у хостера)
+          # ВАЖНО: dangerously-clean НЕ включать — иначе сотрёт
+          # рантайм-статистику api/data/ (голоса, соль)!
