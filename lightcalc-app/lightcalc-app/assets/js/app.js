@@ -3,13 +3,13 @@
  * Реактивное состояние на ванильном JS + subscribe-паттерн.
  */
 
-import * as Calc from './calc.js?v=20260826-ui14';
-import * as Val from './validators.js?v=20260826-ui14';
-import * as R2D from './render2d.js?v=20260826-ui14';
-import * as R3D from './render3d.js?v=20260826-ui14';
-import * as Scene from './scene.js?v=20260826-ui14';
-import { createEditor } from './editor.js?v=20260826-ui14';
-import * as Share from './share.js?v=20260826-ui14';
+import * as Calc from './calc.js?v=20260827-ui15';
+import * as Val from './validators.js?v=20260827-ui15';
+import * as R2D from './render2d.js?v=20260827-ui15';
+import * as R3D from './render3d.js?v=20260827-ui15';
+import * as Scene from './scene.js?v=20260827-ui15';
+import { createEditor } from './editor.js?v=20260827-ui15';
+import * as Share from './share.js?v=20260827-ui15';
 import { CCT_LIST, getCCT } from './cct.js';
 import { loadCatalogAuto, reloadCatalog } from './catalog-loader.js';
 import { addToSiteCart, openSiteCart, getSiteCartCount } from './cart-integration.js';
@@ -727,7 +727,7 @@ function buildZonesVisualEditor() {
     rect.setAttribute('x', zx); rect.setAttribute('y', zy);
     rect.setAttribute('width', zw); rect.setAttribute('height', zh);
     rect.setAttribute('fill', color.fill);
-    rect.setAttribute('stroke', isSelected ? '#4182f5' : color.stroke);
+    rect.setAttribute('stroke', isSelected ? '#cc0000' : color.stroke);
     rect.setAttribute('stroke-width', isSelected ? 2.5 : 1.5);
     rect.setAttribute('stroke-dasharray', isSelected ? '' : '5,3');
     rect.setAttribute('rx', '3');
@@ -818,7 +818,7 @@ function buildZonesVisualEditor() {
         const hr = document.createElementNS(svgNS, 'rect');
         hr.setAttribute('x', h.x); hr.setAttribute('y', h.y);
         hr.setAttribute('width', handleSize); hr.setAttribute('height', handleSize);
-        hr.setAttribute('fill', '#4182f5');
+        hr.setAttribute('fill', '#cc0000');
         hr.setAttribute('stroke', '#fff');
         hr.setAttribute('stroke-width', '1.5');
         hr.setAttribute('rx', '2');

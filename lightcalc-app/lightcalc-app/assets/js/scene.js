@@ -18,7 +18,7 @@
  *   pinAll() / resetToAuto() — для UI-кнопок
  */
 
-import { buildZonePolylines, distributeLuminaires } from './render2d.js?v=20260826-ui14';
+import { buildZonePolylines, distributeLuminaires } from './render2d.js?v=20260827-ui15';
 
 // ============================================================
 // Утилиты идентификаторов

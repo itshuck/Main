@@ -26,8 +26,8 @@
  *   - клик по объекту → выделение, Del — удалить, стрелки — точное позиционирование
  */
 
-import * as Scene from './scene.js?v=20260826-ui14';
-import * as R3D from './render3d.js?v=20260826-ui14';
+import * as Scene from './scene.js?v=20260827-ui15';
+import * as R3D from './render3d.js?v=20260827-ui15';
 import { getCCT, getBeamShape, inferLuminaireType, getRotationLimits, CCT_LIST, LIGHT_TYPE_OPTIONS, getLightTypeOption, resolveBeamType } from './cct.js';
 import { makeIlluminanceFunction, buildIlluminanceGrid, lxToHeatColor, pickNormLx } from './illuminance.js';
 
