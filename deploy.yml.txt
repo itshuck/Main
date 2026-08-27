@@ -13,7 +13,7 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: www/zima-led.ru/lightcalc-app/         # что заливаем
-          server-dir: public_html/lightcalc-app/  # куда (уточните имя корня у хостера)
+          local-dir: /lightcalc-app/         # что заливаем
+          server-dir: /www/zima-led.ru/lightcalc-app/  # куда (уточните имя корня у хостера)
           # ВАЖНО: dangerously-clean НЕ включать — иначе сотрёт
           # рантайм-статистику api/data/ (голоса, соль)!
