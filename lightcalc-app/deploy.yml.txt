@@ -10,9 +10,9 @@ jobs:
       - name: Upload lightcalc-app via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ secrets.188.127.239.141 }}
-          username: ${{ secrets.user1596776 }}
-          password: ${{ secrets.HRrW8crKD2r4N6k }}
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
           local-dir: lightcalc-app/          # что заливаем
           server-dir: public_html/lightcalc-app/  # куда (уточните имя корня у хостера)
           # ВАЖНО: dangerously-clean НЕ включать — иначе сотрёт
