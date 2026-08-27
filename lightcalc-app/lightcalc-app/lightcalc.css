@@ -14,9 +14,9 @@
   --z-text-mut:    #737373;
   --z-text-dim:    #a9a9a9;
   --z-border:      #d3d3d3;
-  --z-border-2:    #e0e0e0;
-  --z-accent:      #5ebdec;    
-  --z-accent-2:    #4182f5;    
+  --z-border-2:    #cc0000;
+  --z-accent:      #cc0000;    
+  --z-accent-2:    #cc0000;    
   --z-accent-3:    #87b4ff;
   --z-red:         #f16876;
   --z-red-strong:  #ff6565;
@@ -34,7 +34,7 @@
   --text-dim:  var(--z-text-dim);
   --brand:     var(--z-accent-2);
   --brand-2:   var(--z-accent);
-  --brand-dim: #1e6bc9;
+  --brand-dim: rgba(153, 0, 0, 1);
   --accent:    var(--z-red);
 
   --ok:      #6db370;
@@ -301,7 +301,7 @@
 .zlc-root .preset-card.selected {
   border-color: var(--brand);
   background: linear-gradient(135deg, var(--bg-elev), rgba(94,189,236,0.08));
-  box-shadow: 0 0 0 2px rgba(94,189,236,0.25);
+  box-shadow: 0 0 5px 2px rgb(243 50 28 / 25%);;
 }
 
 .zlc-root .preset-card .emoji { font-size: 24px; margin-bottom: 6px; }
@@ -1442,7 +1442,13 @@
   .zlc-root .number-with-slider { grid-template-columns: 76px minmax(0, 1fr); gap: 9px; }
   .zlc-root input[type="number"],
   .zlc-root input[type="text"],
-  .zlc-root select { min-height: 44px; font-size: 16px; }
+  .zlc-root select { 
+    min-width: 25px;
+    min-height: 44px;
+    font-size: 16px;
+    margin: 10px 0 10px 0;
+    max-width: 100%; 
+  }
   .zlc-root input[type="range"] { min-height: 36px; }
   .zlc-root .radio-tabs label {
     min-height: 44px;
