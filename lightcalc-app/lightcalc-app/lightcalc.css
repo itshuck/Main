@@ -1,0 +1,1903 @@
+/* zima-lightcalc — embed CSS, scoped under .zlc-root */
+
+
+/* === brand.css (prefixed with .zlc-root) === */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+.zlc-root {
+  
+  --z-bg:          #f3f3f3;
+  --z-bg-card:     #efefef;
+  --z-bg-white:    #ffffff;
+  --z-text:        #404040;
+  --z-text-mut:    #737373;
+  --z-text-dim:    #a9a9a9;
+  --z-border:      #d3d3d3;
+  --z-border-2:    #e0e0e0;
+  --z-accent:      #5ebdec;    
+  --z-accent-2:    #4182f5;    
+  --z-accent-3:    #87b4ff;
+  --z-red:         #f16876;
+  --z-red-strong:  #ff6565;
+  --z-green:       #8da876;
+  --z-yellow:      #f4b942;
+
+  
+  --bg:        var(--z-bg);
+  --bg-elev:   var(--z-bg-white);
+  --bg-elev2:  var(--z-bg-card);
+  --border:    var(--z-border);
+  --border-2:  var(--z-border-2);
+  --text:      var(--z-text);
+  --text-mut:  var(--z-text-mut);
+  --text-dim:  var(--z-text-dim);
+  --brand:     var(--z-accent-2);
+  --brand-2:   var(--z-accent);
+  --brand-dim: #1e6bc9;
+  --accent:    var(--z-red);
+
+  --ok:      #6db370;
+  --warn:    #f4b942;
+  --err:     var(--z-red-strong);
+
+  --radius:    6px;
+  --radius-sm: 4px;
+  --pad:       16px;
+  --pad-sm:    10px;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow:    0 2px 12px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.15);
+
+  --font-brand: 'Montserrat', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+}
+
+/* === style.css (prefixed with .zlc-root) === */
+
+.zlc-root * { box-sizing: border-box; }
+
+.zlc-root a:hover { text-decoration: underline; }
+
+.zlc-root .app-header {
+  background: linear-gradient(180deg, #ffffff 0%, #f8f8f8 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.zlc-root .app-header .logo {
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--brand);
+  letter-spacing: 0.2px;
+}
+
+.zlc-root .app-header .subtitle {
+  color: var(--text-mut);
+  font-size: 13px;
+}
+
+.zlc-root .app-header .spacer { flex: 1; }
+
+.zlc-root .app-header .badge {
+  background: var(--bg-elev2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 12px;
+  color: var(--text-mut);
+}
+
+.zlc-root .app {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 20px;
+  padding: 20px;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+@media (max-width: 900px) {
+.zlc-root .app { grid-template-columns: 1fr; padding: 12px; gap: 12px; }
+
+.zlc-root .steps { position: static; }
+
+.zlc-root .main { padding: 16px; }
+
+.zlc-root .step-content h2 { font-size: 18px; }
+
+.zlc-root .step-content .hint { font-size: 13px; margin-bottom: 16px; }
+}
+
+@media (max-width: 600px) {
+.zlc-root .main { padding: 12px; border-radius: 4px; }
+
+.zlc-root .app-header { padding: 10px 12px; flex-wrap: wrap; }
+
+.zlc-root .app-header .subtitle { display: none; }
+
+.zlc-root .form-row { grid-template-columns: 1fr; gap: 6px; }
+
+.zlc-root .presets-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; }
+
+.zlc-root .preset-card { padding: 10px; }
+
+.zlc-root .preset-card .emoji { font-size: 20px; }
+
+.zlc-root .preset-card .title { font-size: 13px; }
+
+.zlc-root .preset-card .desc { font-size: 11px; }
+}
+
+.zlc-root .steps {
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--pad);
+  height: fit-content;
+  position: sticky;
+  top: 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+.zlc-root .steps h3 {
+  margin: 0 0 12px;
+  font-size: 11px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-weight: 700;
+}
+
+.zlc-root .step-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.15s;
+  color: var(--text-mut);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.zlc-root .step-item:hover:not(.locked) { background: var(--bg-elev2); color: var(--text); }
+
+.zlc-root .step-item.active { background: rgba(94,189,236,0.12); color: var(--text); border-left: 3px solid var(--brand); padding-left: 7px; font-weight: 600; }
+
+.zlc-root .step-item.done { color: var(--text); }
+
+.zlc-root .step-item.locked { opacity: 0.45; cursor: not-allowed; }
+
+.zlc-root .step-item .num {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 600; font-size: 12px;
+  color: var(--text-mut);
+}
+
+.zlc-root .step-item.active .num { background: var(--brand); color: #fff; }
+
+.zlc-root .step-item.done .num { background: var(--z-green); color: #fff; }
+
+.zlc-root .main {
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  min-height: 600px;
+  box-shadow: var(--shadow-sm);
+}
+
+.zlc-root .step-content { display: none; }
+
+.zlc-root .step-content.active { display: block; }
+
+.zlc-root .step-content h2 { margin: 0 0 8px; font-size: 22px; }
+
+.zlc-root .step-content .hint { color: var(--text-mut); margin-bottom: 24px; font-size: 14px; }
+
+.zlc-root .form-row {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 700px) {
+.zlc-root .form-row { grid-template-columns: 1fr; gap: 6px; }
+}
+
+.zlc-root .form-row label { font-size: 14px; color: var(--text-mut); }
+
+.zlc-root .form-row label b { color: var(--text); font-weight: 600; }
+
+.zlc-root input[type="number"], .zlc-root input[type="text"] {
+  width: 100%;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-family: inherit;
+  transition: border-color 0.15s;
+}
+
+.zlc-root input[type="number"]:focus, .zlc-root input[type="text"]:focus, .zlc-root select:focus {
+  outline: none;
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px rgba(65,130,245,0.1);
+}
+
+.zlc-root input[type="range"] { width: 100%; accent-color: var(--brand); }
+
+.zlc-root .number-with-slider {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 12px;
+  align-items: center;
+}
+
+.zlc-root .radio-tabs {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.zlc-root .radio-tabs input { display: none; }
+
+.zlc-root .radio-tabs label {
+  padding: 8px 14px;
+  background: var(--bg-elev2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--text-mut);
+  transition: all 0.15s;
+  font-weight: 500;
+}
+
+.zlc-root .radio-tabs input:checked + label {
+  background: var(--brand);
+  border-color: var(--brand);
+  color: #fff;
+}
+
+.zlc-root .radio-tabs label:hover { background: var(--bg-elev); color: var(--text); }
+
+.zlc-root .radio-tabs input:checked + label:hover { background: var(--brand-dim); color: #fff; }
+
+.zlc-root .presets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.zlc-root .preset-card {
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.zlc-root .preset-card:hover {
+  border-color: var(--brand);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.zlc-root .preset-card.selected {
+  border-color: var(--brand);
+  background: linear-gradient(135deg, var(--bg-elev), rgba(94,189,236,0.08));
+  box-shadow: 0 0 0 2px rgba(94,189,236,0.25);
+}
+
+.zlc-root .preset-card .emoji { font-size: 24px; margin-bottom: 6px; }
+
+.zlc-root .preset-card .title { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+
+.zlc-root .preset-card .desc { font-size: 12px; color: var(--text-mut); line-height: 1.4; }
+
+.zlc-root .zones-visual-editor {
+  margin: 16px 0;
+  padding: 12px;
+  background: var(--bg-elev2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow-x: auto;
+}
+
+.zlc-root .zones-svg {
+  user-select: none;
+  touch-action: none;
+  display: block;
+  margin: 0 auto;
+}
+
+.zlc-root .zones-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: var(--text-mut);
+  flex-wrap: wrap;
+}
+
+.zlc-root .zones-toolbar-hint { flex: 1; min-width: 0; }
+
+.zlc-root .btn-mini {
+  padding: 5px 12px;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.15s;
+}
+
+.zlc-root .btn-mini:hover { border-color: var(--brand); color: var(--brand); }
+
+.zlc-root select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: var(--bg-elev);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path fill='%23737373' d='M6 8L2 4h8z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-right: 28px;
+  cursor: pointer;
+}
+
+.zlc-root select:hover { border-color: var(--brand); }
+
+.zlc-root .zones-list { margin-top: 16px; }
+
+.zlc-root .zone-row {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1.6fr) 90px 140px 96px;
+  gap: 10px;
+  padding: 10px;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  margin-bottom: 8px;
+  align-items: center;
+  font-size: 14px;
+  transition: box-shadow 0.15s, border-color 0.15s;
+}
+
+.zlc-root .zone-row:hover { border-color: var(--brand); box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+
+@media (max-width: 900px) {
+.zlc-root .zone-row {
+    grid-template-columns: 32px minmax(0, 1fr) auto;
+    grid-template-areas:
+      "marker name    actions"
+      "marker area    area"
+      "marker cct     cct";
+    gap: 8px;
+  }
+
+.zlc-root .zone-row > *:nth-child(1) { grid-area: marker; }
+
+.zlc-root .zone-row > *:nth-child(2) { grid-area: name; min-width: 0; }
+
+.zlc-root .zone-row > *:nth-child(3) { grid-area: area; }
+
+.zlc-root .zone-row > *:nth-child(4) { grid-area: cct; }
+
+.zlc-root .zone-row > *:nth-child(5) { grid-area: actions; }
+}
+
+.zlc-root .zone-row .zone-meta { font-size: 12px; color: var(--text-mut); margin-top: 4px; }
+
+.zlc-root .zone-color-marker {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-weight: 700; font-size: 14px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+
+.zlc-root .zone-row-actions {
+  display: flex; gap: 4px; align-items: center;
+}
+
+.zlc-root .btn-icon {
+  width: 26px; height: 26px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--text-mut);
+  font-family: inherit;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s;
+}
+
+.zlc-root .btn-icon:hover:not(:disabled) { border-color: var(--brand); color: var(--brand); background: rgba(65,130,245,0.06); }
+
+.zlc-root .btn-icon:disabled { opacity: 0.3; cursor: not-allowed; }
+
+.zlc-root .btn-remove { background: transparent; border: 1px solid var(--border); color: var(--text-mut); padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 12px; }
+
+.zlc-root .btn-remove:hover { border-color: var(--err); color: var(--err); }
+
+.zlc-root .btn-add-zone {
+  margin-top: 8px;
+  background: transparent;
+  border: 1px dashed var(--border-2);
+  color: var(--text-mut);
+  padding: 10px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  width: 100%;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.zlc-root .btn-add-zone:hover { border-color: var(--brand); color: var(--brand); }
+
+.zlc-root .actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.zlc-root .btn {
+  padding: 10px 24px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid transparent;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+
+.zlc-root .btn-primary {
+  background: var(--brand);
+  color: #fff;
+  border-color: var(--brand);
+}
+
+.zlc-root .btn-primary:hover { background: var(--brand-dim); border-color: var(--brand-dim); }
+
+.zlc-root .btn-primary:disabled { background: var(--border); border-color: var(--border); cursor: not-allowed; }
+
+.zlc-root .btn-secondary {
+  background: var(--bg-elev);
+  color: var(--text);
+  border-color: var(--border);
+}
+
+.zlc-root .btn-secondary:hover { border-color: var(--brand); color: var(--brand); }
+
+.zlc-root .results { display: grid; gap: 16px; }
+
+.zlc-root .result-card {
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: var(--shadow-sm);
+}
+
+.zlc-root .result-card h3 {
+  margin: 0 0 12px;
+  font-size: 15px;
+  color: var(--brand);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.zlc-root .result-card .kv {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px 20px;
+  font-size: 14px;
+}
+
+.zlc-root .result-card .kv .k { color: var(--text-mut); }
+
+.zlc-root .result-card .kv .v { color: var(--text); font-weight: 500; text-align: right; }
+
+.zlc-root .result-card .kv .v strong { color: var(--brand); }
+
+.zlc-root .bom-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 8px; }
+
+.zlc-root .bom-table th, .zlc-root .bom-table td { padding: 8px 10px; border-bottom: 1px solid var(--border); text-align: left; }
+
+.zlc-root .bom-table th { color: var(--text-dim); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+.zlc-root .bom-table td.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+.zlc-root .bom-table tfoot td { border-bottom: none; font-weight: 600; padding-top: 12px; font-size: 14px; }
+
+.zlc-root .bom-table .grand { color: var(--brand); font-size: 18px; }
+
+.zlc-root .warnings { display: grid; gap: 8px; }
+
+.zlc-root .warning-item { border-radius: var(--radius-sm); padding: 12px 16px; border-left: 4px solid var(--border); background: var(--bg-elev2); }
+
+.zlc-root .warning-item.error { border-left-color: var(--err); background: rgba(255,101,101,0.06); }
+
+.zlc-root .warning-item.warning { border-left-color: var(--warn); background: rgba(244,185,66,0.08); }
+
+.zlc-root .warning-item.info { border-left-color: var(--brand); background: rgba(94,189,236,0.06); }
+
+.zlc-root .warning-item .title { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+
+.zlc-root .warning-item .message { font-size: 13px; color: var(--text-mut); white-space: pre-wrap; }
+
+.zlc-root .warning-item .fix { font-size: 13px; margin-top: 6px; color: var(--text); }
+
+.zlc-root .warning-item .fix::before { content: "→ "; color: var(--brand); font-weight: 600; }
+
+.zlc-root .loader {
+  display: inline-block; width: 20px; height: 20px;
+  border: 2px solid var(--border); border-top-color: var(--brand);
+  border-radius: 50%; animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.zlc-root .light-type-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+  width: 100%;
+}
+.zlc-root .light-type-cell {
+  background: var(--bg-elev2);
+  border: 1px solid var(--border-2);
+  border-radius: var(--radius);
+  padding: 10px;
+}
+.zlc-root .light-type-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.zlc-root .light-type-icon { font-size: 16px; }
+.zlc-root .light-type-qty {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.zlc-root .light-type-num {
+  min-width: 26px;
+  text-align: center;
+  font-weight: 700;
+  color: var(--brand);
+  font-variant-numeric: tabular-nums;
+}
+.zlc-root .light-type-hint { margin-top: 6px; }
+
+.zlc-root .plan-wrap { margin: 0 -8px; overflow: auto; border-radius: var(--radius-sm); }
+
+.zlc-root .plan-wrap svg { max-width: 100%; height: auto; }
+.zlc-root .plan-wrap-3d {
+  background: #10151d;
+  border: 1px solid #324055;
+  box-shadow: inset 0 0 30px rgba(0,0,0,0.3);
+}
+.zlc-root .scene-3d { cursor: grab; }
+.zlc-root .scene-3d:active { cursor: grabbing; }
+
+.zlc-root .plan-controls {
+  display: flex; align-items: center; gap: 14px;
+  margin-top: 14px; padding-top: 14px;
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap; font-size: 13px; color: var(--text-mut);
+}
+
+.zlc-root .plan-controls .toggle { display: inline-flex; align-items: center; gap: 4px; cursor: pointer; user-select: none; }
+
+.zlc-root .plan-controls .toggle input { accent-color: var(--brand); cursor: pointer; }
+
+.zlc-root .plan-controls-spacer { flex: 1; }
+
+.zlc-root .btn-sm { padding: 6px 12px; font-size: 12px; font-weight: 500; }
+
+.zlc-root .editor-placeholder {
+  padding: 60px 30px;
+  text-align: center;
+  background: var(--bg-elev2);
+  border: 1px dashed var(--border-2);
+  border-radius: var(--radius);
+  color: var(--text-mut);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.zlc-root .editor-fullscreen-launcher {
+  display: block;
+  margin: 20px 0;
+  padding: 40px 30px;
+  background: linear-gradient(135deg, #ffffff, rgba(94,189,236,0.08));
+  border: 2px solid var(--brand);
+  border-radius: var(--radius);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.zlc-root .editor-fullscreen-launcher:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+
+.zlc-root .editor-fullscreen-launcher h3 { color: var(--brand); font-size: 20px; margin-bottom: 8px; }
+
+.zlc-root .editor-fullscreen-launcher p { color: var(--text-mut); font-size: 14px; margin: 4px 0; }
+
+.zlc-root .editor-fullscreen-launcher .cta {
+  display: inline-block; margin-top: 16px;
+  padding: 10px 30px; background: var(--brand); color: #fff;
+  border-radius: var(--radius-sm); font-weight: 600;
+}
+
+.zlc-root .muted { color: var(--text-mut); }
+
+.zlc-root .mt-sm { margin-top: 8px; }
+
+.zlc-root .mt-md { margin-top: 16px; }
+
+.zlc-root .mt-lg { margin-top: 24px; }
+
+.zlc-root .text-right { text-align: right; }
+
+.zlc-root .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+@media (max-width: 700px) {
+.zlc-root .grid-2 { grid-template-columns: 1fr; }
+}
+
+/* === editor-3dsmax.css (уже scoped через .editor-3dsmax) === */
+/* =========================================================
+   EDITOR 3DS MAX STYLE — тёмная профи-тема редактора-вьюпорта
+   Активируется только внутри .editor-3dsmax (fullscreen-overlay).
+   ========================================================= */
+
+.editor-3dsmax {
+  --ed-bg:         #2a2a2a;
+  --ed-bg-2:       #333333;
+  --ed-bg-panel:   #3a3a3a;
+  --ed-bg-input:   #242424;
+  --ed-bg-viewport:#1c1c1c;
+  --ed-border:     #1a1a1a;
+  --ed-border-2:   #4a4a4a;
+  --ed-text:       #d9d9d9;
+  --ed-text-mut:   #a0a0a0;
+  --ed-text-dim:   #707070;
+  --ed-accent:     #00d4ff;      /* фирменный голубой 3ds Max */
+  --ed-accent-dim: #0088aa;
+  --ed-warn:       #f4b942;
+  --ed-err:        #ff6565;
+  --ed-ok:         #7ec97e;
+  --ed-active:     #4a7fbf;
+  --ed-hover:      #4a4a4a;
+
+  --ed-h-topbar:   40px;
+  --ed-h-toolbar:  36px;
+  --ed-h-statusbar:26px;
+  --ed-w-dock:     280px;
+
+  /* z-index — максимум integer, чтобы поверх любых sticky-header/pageToTop сайта zima-led */
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;
+  background: var(--ed-bg);
+  color: var(--ed-text);
+  font-family: 'Segoe UI', Tahoma, system-ui, -apple-system, sans-serif;
+  font-size: 12px;
+  line-height: 1.4;
+  display: grid;
+  grid-template-rows: var(--ed-h-topbar) var(--ed-h-toolbar) 1fr var(--ed-h-statusbar);
+  overflow: hidden;
+}
+
+/* --- Topbar (меню-строка «File / View / …» + актив кнопки) --- */
+.editor-3dsmax .ed-topbar {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  height: var(--ed-h-topbar);
+  background: linear-gradient(180deg, #3a3a3a 0%, #2f2f2f 100%);
+  border-bottom: 1px solid var(--ed-border);
+  padding: 0 12px;
+}
+.editor-3dsmax .ed-topbar-brand {
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--ed-accent);
+  margin-right: 24px;
+  letter-spacing: 0.3px;
+}
+.editor-3dsmax .ed-menu {
+  display: flex;
+  gap: 0;
+}
+.editor-3dsmax .ed-menu-item {
+  padding: 8px 14px;
+  color: var(--ed-text);
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 12px;
+}
+.editor-3dsmax .ed-menu-item:hover { background: var(--ed-hover); }
+.editor-3dsmax .ed-topbar-spacer { flex: 1; }
+.editor-3dsmax .ed-topbar-btn {
+  padding: 6px 12px;
+  background: var(--ed-bg-panel);
+  border: 1px solid var(--ed-border-2);
+  color: var(--ed-text);
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 12px;
+  margin-left: 6px;
+  font-family: inherit;
+  transition: all 0.1s;
+}
+.editor-3dsmax .ed-topbar-btn:hover { background: var(--ed-hover); border-color: var(--ed-accent); }
+.editor-3dsmax .ed-topbar-btn.primary { background: var(--ed-accent); color: #000; border-color: var(--ed-accent); font-weight: 600; }
+.editor-3dsmax .ed-topbar-btn.primary:hover { background: #33dfff; }
+.editor-3dsmax .ed-topbar-btn.close { background: transparent; border-color: transparent; font-size: 18px; padding: 4px 10px; }
+.editor-3dsmax .ed-topbar-btn.close:hover { background: var(--ed-err); color: #fff; }
+.editor-3dsmax .ed-mobile-save { display: none; }
+.editor-3dsmax .ed-brand-icon { margin-right: 5px; }
+
+/* --- Toolbar (кнопки под меню — режимы, тумблеры вьюпорта) --- */
+.editor-3dsmax .ed-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: var(--ed-h-toolbar);
+  background: var(--ed-bg-2);
+  border-bottom: 1px solid var(--ed-border);
+  padding: 0 8px;
+  overflow-x: auto;
+}
+.editor-3dsmax .ed-tool-btn {
+  min-width: 28px; height: 28px;
+  padding: 0 8px;
+  background: var(--ed-bg-panel);
+  border: 1px solid var(--ed-border-2);
+  color: var(--ed-text);
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 11px;
+  font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.1s;
+}
+.editor-3dsmax .ed-tool-btn:hover { background: var(--ed-hover); border-color: var(--ed-accent); color: var(--ed-accent); }
+.editor-3dsmax .ed-tool-btn.active { background: var(--ed-active); border-color: var(--ed-accent); color: #fff; }
+.editor-3dsmax .ed-tool-btn.icon { padding: 0; justify-content: center; font-size: 14px; }
+.editor-3dsmax .ed-tool-divider { width: 1px; background: var(--ed-border); height: 20px; margin: 0 4px; }
+.editor-3dsmax .ed-tool-label { color: var(--ed-text-mut); font-size: 11px; padding: 0 6px; }
+
+/* --- Основной area: 3-колоночный dock --- */
+.editor-3dsmax .ed-body {
+  display: grid;
+  grid-template-columns: var(--ed-w-dock) 1fr var(--ed-w-dock);
+  overflow: hidden;
+  min-height: 0;
+}
+.editor-3dsmax .ed-body.left-collapsed  { grid-template-columns: 32px 1fr var(--ed-w-dock); }
+.editor-3dsmax .ed-body.right-collapsed { grid-template-columns: var(--ed-w-dock) 1fr 32px; }
+.editor-3dsmax .ed-body.both-collapsed  { grid-template-columns: 32px 1fr 32px; }
+
+/* Панель — общая */
+.editor-3dsmax .ed-panel {
+  background: var(--ed-bg-2);
+  border-right: 1px solid var(--ed-border);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+.editor-3dsmax .ed-panel.right { border-right: none; border-left: 1px solid var(--ed-border); }
+.editor-3dsmax .ed-panel-header {
+  display: flex;
+  align-items: center;
+  height: 26px;
+  background: var(--ed-bg-panel);
+  border-bottom: 1px solid var(--ed-border);
+  padding: 0 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ed-text);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.editor-3dsmax .ed-panel-title { flex: 1; }
+.editor-3dsmax .ed-panel-collapse {
+  width: 20px; height: 20px;
+  background: transparent; border: none;
+  color: var(--ed-text-mut); cursor: pointer;
+  font-size: 12px; border-radius: 2px;
+}
+.editor-3dsmax .ed-panel-collapse:hover { background: var(--ed-hover); color: var(--ed-accent); }
+.editor-3dsmax .ed-panel-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0;
+  min-height: 0;
+}
+
+/* Collapsed vertical strip */
+.editor-3dsmax .ed-panel-collapsed {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 0;
+  color: var(--ed-text-mut);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  height: 100%;
+}
+.editor-3dsmax .ed-panel-collapsed:hover { color: var(--ed-accent); background: var(--ed-hover); }
+
+/* --- Rollouts (свёртки-«гармошки» в правой панели) --- */
+.editor-3dsmax .ed-rollout {
+  border-bottom: 1px solid var(--ed-border);
+}
+.editor-3dsmax .ed-rollout-header {
+  display: flex;
+  align-items: center;
+  padding: 6px 10px;
+  background: var(--ed-bg-panel);
+  cursor: pointer;
+  user-select: none;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ed-text);
+  gap: 6px;
+}
+.editor-3dsmax .ed-rollout-header:hover { background: var(--ed-hover); }
+.editor-3dsmax .ed-rollout-caret {
+  font-size: 9px;
+  color: var(--ed-text-mut);
+  transition: transform 0.15s;
+  width: 10px;
+}
+.editor-3dsmax .ed-rollout.open .ed-rollout-caret { transform: rotate(90deg); }
+.editor-3dsmax .ed-rollout-body { padding: 8px 10px; display: none; }
+.editor-3dsmax .ed-rollout.open .ed-rollout-body { display: block; }
+
+/* --- Palette (левая: каталог) --- */
+.editor-3dsmax .ed-palette-tabs {
+  display: flex;
+  background: var(--ed-bg-panel);
+  border-bottom: 1px solid var(--ed-border);
+}
+.editor-3dsmax .ed-palette-tab {
+  flex: 1;
+  padding: 8px 6px;
+  text-align: center;
+  cursor: pointer;
+  color: var(--ed-text-mut);
+  font-size: 11px;
+  font-weight: 600;
+  border-bottom: 2px solid transparent;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.editor-3dsmax .ed-palette-tab:hover { color: var(--ed-text); background: var(--ed-hover); }
+.editor-3dsmax .ed-palette-tab.active { color: var(--ed-accent); border-bottom-color: var(--ed-accent); background: var(--ed-bg-2); }
+.editor-3dsmax .ed-palette-list { padding: 8px; }
+.editor-3dsmax .ed-palette-item {
+  display: grid;
+  grid-template-columns: 32px 1fr auto;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 8px;
+  background: var(--ed-bg-panel);
+  border: 1px solid var(--ed-border-2);
+  border-radius: 3px;
+  margin-bottom: 5px;
+  cursor: grab;
+  font-size: 12px;                 /* было 11 → +0.1em */
+  transition: all 0.1s;
+}
+.editor-3dsmax .ed-palette-item-static {
+  cursor: default;
+  opacity: 0.85;
+}
+.editor-3dsmax .ed-palette-item-static:hover {
+  transform: none;
+}
+.editor-3dsmax .ed-palette-body-cell {
+  min-width: 0;
+  overflow: hidden;
+}
+.editor-3dsmax .ed-palette-item:hover {
+  border-color: var(--ed-accent);
+  background: var(--ed-hover);
+  transform: translateX(2px);
+}
+.editor-3dsmax .ed-palette-item:active { cursor: grabbing; }
+.editor-3dsmax .ed-palette-icon {
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--ed-bg-input);
+  border-radius: 3px;
+  color: var(--ed-accent);
+  font-size: 18px;
+}
+/* Названия в палитре: ЯРЧЕ + крупнее (+0.1em по пожеланию #8) */
+.editor-3dsmax .ed-palette-title {
+  color: #ffffff;                  /* было var(--ed-text) → яркий белый */
+  font-weight: 600;                /* было 500 → полужирный */
+  font-size: 13px;                 /* было 11 → +0.1em */
+  line-height: 1.35;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  letter-spacing: 0.1px;
+}
+.editor-3dsmax .ed-palette-sub {
+  color: var(--ed-text);           /* было var(--ed-text-dim) → сильнее контраст */
+  font-size: 11px;                 /* было 10 → +0.1em */
+  margin-top: 3px;
+  line-height: 1.3;
+}
+.editor-3dsmax .ed-palette-price {
+  color: var(--ed-accent);
+  font-size: 12px;                 /* было 10 → +0.1em */
+  font-weight: 700;
+  white-space: nowrap;
+}
+.editor-3dsmax .ed-palette-actions {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  gap: 5px;
+}
+.editor-3dsmax .ed-palette-add {
+  min-width: 28px;
+  min-height: 28px;
+  padding: 2px 7px;
+  border: 1px solid var(--ed-accent-dim);
+  border-radius: 3px;
+  background: rgba(0, 212, 255, 0.1);
+  color: var(--ed-accent);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+}
+.editor-3dsmax .ed-palette-add:hover {
+  background: var(--ed-accent);
+  color: #000;
+}
+.editor-3dsmax .ed-palette-add-label { display: none; }
+.editor-3dsmax .ed-palette-cct-chip {
+  display: inline-block;
+  padding: 2px 7px;
+  border-radius: 3px;
+  font-size: 10px;
+  font-weight: 700;
+  margin-right: 6px;
+  letter-spacing: 0.3px;
+}
+.editor-3dsmax .ed-palette-group-title {
+  padding: 8px 10px 4px;
+  color: var(--ed-accent);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  border-top: 1px solid var(--ed-border);
+  margin-top: 4px;
+}
+.editor-3dsmax .ed-palette-group-title:first-child {
+  border-top: none;
+  margin-top: 0;
+}
+.editor-3dsmax .ed-palette-filter {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 10px;
+  background: var(--ed-bg-2);
+  border-bottom: 1px solid var(--ed-border);
+  font-size: 11px;
+  color: var(--ed-text-mut);
+}
+.editor-3dsmax .ed-palette-filter-label {
+  color: var(--ed-text-mut);
+  margin-right: 4px;
+}
+.editor-3dsmax .ed-mini-btn {
+  padding: 3px 10px;
+  background: var(--ed-bg-panel);
+  border: 1px solid var(--ed-border-2);
+  color: var(--ed-text);
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 11px;
+  font-family: inherit;
+}
+.editor-3dsmax .ed-mini-btn:hover {
+  background: var(--ed-hover);
+  border-color: var(--ed-accent);
+}
+.editor-3dsmax .ed-mini-btn.active {
+  background: var(--ed-accent);
+  border-color: var(--ed-accent);
+  color: #000;
+  font-weight: 700;
+}
+.editor-3dsmax .ed-palette-search-wrap {
+  padding: 6px 10px 10px;
+  background: var(--ed-bg-2);
+  border-bottom: 1px solid var(--ed-border);
+}
+.editor-3dsmax .ed-palette-qty {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  background: var(--ed-bg-2);
+  border-bottom: 1px solid var(--ed-border);
+  font-size: 12px;
+}
+.editor-3dsmax .ed-palette-qty-val {
+  min-width: 22px;
+  text-align: center;
+  font-weight: 700;
+  color: var(--ed-accent);
+  font-variant-numeric: tabular-nums;
+}
+.editor-3dsmax .ed-palette-qty-hint {
+  color: var(--ed-text-mut);
+  font-size: 11px;
+  margin-left: auto;
+}
+.editor-3dsmax .ed-palette-lt-bar {
+  padding: 6px 10px;
+  background: var(--ed-bg-2);
+  border-bottom: 1px solid var(--ed-border);
+}
+.editor-3dsmax .ed-palette-lt {
+  width: 100%;
+}
+.editor-3dsmax .ed-palette-search {
+  width: 100%;
+  padding: 6px 10px;
+  background: var(--ed-bg-input);
+  border: 1px solid var(--ed-border-2);
+  color: var(--ed-text);
+  border-radius: 3px;
+  font-size: 12px;
+  font-family: inherit;
+}
+.editor-3dsmax .ed-palette-search:focus {
+  outline: none;
+  border-color: var(--ed-accent);
+}
+.editor-3dsmax .ed-palette-hint {
+  padding: 10px;
+  background: var(--ed-bg-input);
+  border-radius: 3px;
+  color: var(--ed-text-mut);
+  font-size: 10px;
+  line-height: 1.5;
+  margin: 8px;
+}
+.editor-3dsmax .ed-palette-hint b { color: var(--ed-accent); }
+
+/* --- Viewport (центральный) --- */
+.editor-3dsmax .ed-viewport {
+  background: var(--ed-bg-viewport);
+  position: relative;
+  overflow: hidden;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.editor-3dsmax .ed-viewport-label {
+  position: absolute;
+  top: 8px; left: 12px;
+  background: rgba(0,0,0,0.7);
+  padding: 4px 10px;
+  border-radius: 3px;
+  color: var(--ed-text);
+  font-size: 11px;
+  font-weight: 600;
+  border: 1px solid var(--ed-border-2);
+  z-index: 10;
+  pointer-events: none;
+}
+.editor-3dsmax .ed-viewport-label span { color: var(--ed-accent); }
+.editor-3dsmax .ed-viewport-hint {
+  position: absolute;
+  bottom: 10px; right: 10px;
+  background: rgba(0,0,0,0.65);
+  padding: 6px 10px;
+  border-radius: 3px;
+  color: var(--ed-text-mut);
+  font-size: 10px;
+  border: 1px solid var(--ed-border-2);
+  z-index: 10;
+  pointer-events: none;
+  line-height: 1.6;
+}
+.editor-3dsmax .ed-viewport-hint b { color: var(--ed-accent); font-weight: 600; }
+.editor-3dsmax .ed-mobile-hints { display: none; }
+
+.editor-3dsmax .ed-svg-host {
+  flex: 1;
+  overflow: hidden;
+  cursor: default;
+}
+.editor-3dsmax .ed-svg-host svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  user-select: none;
+}
+
+/* --- Nav buttons (zoom in/out/fit — как правая нижняя панель 3ds Max) --- */
+.editor-3dsmax .ed-viewport-nav {
+  position: absolute;
+  right: 10px; top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 10;
+}
+.editor-3dsmax .ed-nav-btn {
+  width: 28px; height: 28px;
+  background: rgba(58,58,58,0.9);
+  border: 1px solid var(--ed-border-2);
+  color: var(--ed-text);
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: inherit;
+}
+.editor-3dsmax .ed-nav-btn:hover { background: var(--ed-hover); color: var(--ed-accent); border-color: var(--ed-accent); }
+
+/* --- Props (правая: параметры выделенного) --- */
+.editor-3dsmax .ed-prop-empty {
+  padding: 24px 16px;
+  color: var(--ed-text-dim);
+  text-align: center;
+  font-size: 11px;
+  line-height: 1.6;
+}
+.editor-3dsmax .ed-prop-obj {
+  padding: 10px;
+  background: linear-gradient(90deg, rgba(0,212,255,0.1), transparent);
+  border-left: 3px solid var(--ed-accent);
+  margin-bottom: 4px;
+}
+.editor-3dsmax .ed-prop-kind {
+  font-size: 10px;
+  color: var(--ed-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-weight: 700;
+}
+.editor-3dsmax .ed-prop-name {
+  font-size: 13px;
+  color: #ffffff;
+  margin-top: 4px;
+  line-height: 1.35;
+  font-weight: 600;
+}
+.editor-3dsmax .ed-prop-desc {
+  font-size: 11px;
+  color: var(--ed-text-mut);
+  margin-top: 6px;
+  line-height: 1.4;
+  font-style: italic;
+}
+.editor-3dsmax .ed-prop-row-full {
+  padding: 8px 10px;
+  border-top: 1px solid var(--ed-border);
+  margin-top: 4px;
+}
+.editor-3dsmax .ed-prop-link {
+  color: var(--ed-accent);
+  font-size: 11px;
+  text-decoration: none;
+}
+.editor-3dsmax .ed-prop-link:hover {
+  text-decoration: underline;
+}
+.editor-3dsmax .ed-prop-row {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 8px;
+  align-items: center;
+  padding: 4px 10px;
+  font-size: 11px;
+}
+.editor-3dsmax .ed-prop-row .k { color: var(--ed-text-mut); }
+.editor-3dsmax .ed-prop-row .v { color: var(--ed-text); font-weight: 500; font-variant-numeric: tabular-nums; }
+.editor-3dsmax .ed-prop-row .v b { color: var(--ed-accent); font-weight: 600; }
+
+.editor-3dsmax .ed-input {
+  width: 100%;
+  background: var(--ed-bg-input);
+  border: 1px solid var(--ed-border-2);
+  color: var(--ed-text);
+  padding: 4px 6px;
+  border-radius: 2px;
+  font-size: 11px;
+  font-family: inherit;
+}
+.editor-3dsmax .ed-input:focus {
+  outline: none;
+  border-color: var(--ed-accent);
+}
+.editor-3dsmax .ed-select {
+  width: 100%;
+  background: var(--ed-bg-input);
+  border: 1px solid var(--ed-border-2);
+  color: var(--ed-text);
+  padding: 4px 6px;
+  border-radius: 2px;
+  font-size: 11px;
+  font-family: inherit;
+}
+.editor-3dsmax .ed-range {
+  width: 100%;
+  accent-color: var(--ed-accent);
+  height: 20px;
+}
+.editor-3dsmax .ed-angle-presets {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  margin-top: 8px;
+}
+.editor-3dsmax .ed-angle-preset {
+  padding: 6px 0;
+  font-size: 14px;
+  text-align: center;
+  min-height: 30px;
+}
+.editor-3dsmax .ed-angle-preset.active {
+  background: var(--ed-accent);
+  border-color: var(--ed-accent);
+  color: #000;
+  font-weight: 700;
+}
+.editor-3dsmax .ed-angle-preset:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+.editor-3dsmax .ed-prop-hint {
+  margin-top: 8px;
+  padding: 6px 8px;
+  font-size: 10px;
+  color: var(--ed-accent);
+  background: rgba(0,212,255,0.08);
+  border-left: 2px solid var(--ed-accent);
+  border-radius: 2px;
+  line-height: 1.4;
+}
+.editor-3dsmax .ed-btn {
+  padding: 5px 12px;
+  background: var(--ed-bg-panel);
+  border: 1px solid var(--ed-border-2);
+  color: var(--ed-text);
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 11px;
+  font-family: inherit;
+  transition: all 0.1s;
+}
+.editor-3dsmax .ed-btn:hover { background: var(--ed-hover); border-color: var(--ed-accent); }
+.editor-3dsmax .ed-btn.danger { color: var(--ed-err); }
+.editor-3dsmax .ed-btn.danger:hover { background: rgba(255,101,101,0.15); border-color: var(--ed-err); }
+.editor-3dsmax .ed-btn.wide { width: 100%; }
+
+/* --- Statusbar (низ) --- */
+.editor-3dsmax .ed-statusbar {
+  display: flex;
+  align-items: center;
+  height: var(--ed-h-statusbar);
+  background: var(--ed-bg-panel);
+  border-top: 1px solid var(--ed-border);
+  padding: 0 10px;
+  gap: 16px;
+  font-size: 11px;
+  color: var(--ed-text-mut);
+  overflow-x: auto;
+}
+.editor-3dsmax .ed-status-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 8px;
+  border-right: 1px solid var(--ed-border);
+  white-space: nowrap;
+}
+.editor-3dsmax .ed-status-item:last-child { border-right: none; }
+.editor-3dsmax .ed-status-item b { color: var(--ed-text); font-weight: 600; }
+.editor-3dsmax .ed-status-item.accent b { color: var(--ed-accent); }
+.editor-3dsmax .ed-status-item.warn { color: var(--ed-warn); }
+.editor-3dsmax .ed-status-item.err { color: var(--ed-err); }
+.editor-3dsmax .ed-status-spacer { flex: 1; }
+.editor-3dsmax .ed-status-price {
+  padding: 2px 12px;
+  background: var(--ed-accent);
+  color: #000;
+  border-radius: 3px;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+/* --- Delta badges --- */
+.editor-3dsmax .ed-delta {
+  padding: 1px 6px;
+  border-radius: 2px;
+  font-size: 10px;
+  font-weight: 600;
+  margin-left: 4px;
+}
+.editor-3dsmax .ed-delta.ok { background: rgba(126,201,126,0.2); color: var(--ed-ok); }
+.editor-3dsmax .ed-delta.over { background: rgba(244,185,66,0.2); color: var(--ed-warn); }
+.editor-3dsmax .ed-delta.under { background: rgba(255,101,101,0.2); color: var(--ed-err); }
+
+/* --- Scrollbars (соответствуют тёмной теме) --- */
+.editor-3dsmax ::-webkit-scrollbar { width: 10px; height: 10px; }
+.editor-3dsmax ::-webkit-scrollbar-track { background: var(--ed-bg); }
+.editor-3dsmax ::-webkit-scrollbar-thumb { background: var(--ed-bg-panel); border-radius: 3px; }
+.editor-3dsmax ::-webkit-scrollbar-thumb:hover { background: var(--ed-border-2); }
+
+/* =========================================================
+   RESPONSIVE — мастер и fullscreen-редактор
+   Телефоны: 320–700px; планшеты: 701–1024px; phone landscape: высота ≤500px.
+   ========================================================= */
+@media (max-width: 1024px) {
+  .editor-3dsmax { --ed-w-dock: 230px; }
+  .editor-3dsmax .ed-topbar-brand { margin-right: 10px; }
+  .editor-3dsmax .ed-menu-item { padding-inline: 9px; }
+}
+
+/* Основной мастер на телефоне */
+@media (max-width: 700px) {
+  .zlc-root { width: 100%; max-width: 100vw; overflow-x: hidden; }
+  .zlc-root .app-header {
+    gap: 8px;
+    padding: 9px 10px;
+  }
+  .zlc-root .app-header .logo { font-size: 15px; }
+  .zlc-root .app-header .badge {
+    max-width: 48vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .zlc-root .app { padding: 8px; gap: 8px; }
+  .zlc-root .steps {
+    padding: 6px;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  .zlc-root .steps h3,
+  .zlc-root .steps > .mt-lg { display: none; }
+  .zlc-root #steps-list {
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    scroll-snap-type: x proximity;
+  }
+  .zlc-root #steps-list::-webkit-scrollbar { display: none; }
+  .zlc-root .step-item {
+    flex: 0 0 auto;
+    min-height: 42px;
+    padding: 7px 9px;
+    font-size: 12px;
+    scroll-snap-align: center;
+  }
+  .zlc-root .step-item.active { padding-left: 7px; }
+  .zlc-root .step-item .num { width: 28px; height: 28px; }
+  .zlc-root .main {
+    min-width: 0;
+    min-height: 0;
+    padding: 12px;
+  }
+  .zlc-root .number-with-slider { grid-template-columns: 76px minmax(0, 1fr); gap: 9px; }
+  .zlc-root input[type="number"],
+  .zlc-root input[type="text"],
+  .zlc-root select { min-height: 44px; font-size: 16px; }
+  .zlc-root input[type="range"] { min-height: 36px; }
+  .zlc-root .radio-tabs label {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    padding: 9px 12px;
+  }
+  .zlc-root .zones-visual-editor { margin-inline: -5px; padding: 6px; }
+  .zlc-root .zones-toolbar { align-items: stretch; }
+  .zlc-root .zones-toolbar-hint { flex-basis: 100%; }
+  .zlc-root .btn-mini,
+  .zlc-root .btn-icon,
+  .zlc-root .btn-remove { min-height: 42px; }
+  .zlc-root .btn-icon { min-width: 42px; }
+  .zlc-root .actions {
+    gap: 8px;
+    margin-top: 22px;
+    padding-top: 14px;
+    flex-wrap: wrap;
+  }
+  .zlc-root .actions > .btn { flex: 1 1 0; min-height: 46px; padding-inline: 12px; }
+  .zlc-root .actions > div {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    flex: 1 1 100%;
+  }
+  .zlc-root .actions > div .btn {
+    width: 100%;
+    min-height: 46px;
+    margin-right: 0 !important;
+  }
+  .zlc-root .result-card { padding: 13px; }
+  .zlc-root .result-card .kv { gap: 8px 12px; font-size: 13px; }
+  .zlc-root .plan-wrap { margin-inline: -4px; }
+  .zlc-root .plan-controls { gap: 10px; }
+  .zlc-root .plan-controls .toggle { min-height: 38px; }
+  .zlc-root .plan-controls .btn { min-height: 42px; flex: 1 1 90px; }
+  .zlc-root .editor-fullscreen-launcher { margin: 14px 0; padding: 24px 14px; }
+  .zlc-root .editor-fullscreen-launcher h3 { font-size: 17px; }
+  .zlc-root .editor-fullscreen-launcher p { font-size: 13px; }
+
+  /* BOM превращается из широкой таблицы в читаемые карточки. */
+  .zlc-root .bom-table,
+  .zlc-root .bom-table tbody,
+  .zlc-root .bom-table tfoot,
+  .zlc-root .bom-table tr,
+  .zlc-root .bom-table td { display: block; width: 100%; }
+  .zlc-root .bom-table thead { display: none; }
+  .zlc-root .bom-table tbody tr {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .zlc-root .bom-table tbody td {
+    display: grid;
+    grid-template-columns: minmax(82px, 0.35fr) minmax(0, 1fr);
+    gap: 10px;
+    border: 0;
+    padding: 5px 2px;
+    text-align: right;
+    overflow-wrap: anywhere;
+  }
+  .zlc-root .bom-table tbody td::before {
+    content: attr(data-label);
+    color: var(--text-dim);
+    font-size: 11px;
+    font-weight: 600;
+    text-align: left;
+    text-transform: uppercase;
+  }
+  .zlc-root .bom-table tbody td:first-child { text-align: left; }
+  .zlc-root .bom-table tbody td.num { text-align: right; }
+  .zlc-root .bom-table tfoot tr {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 12px;
+  }
+  .zlc-root .bom-table tfoot td { border: 0; padding: 4px 2px; }
+  .zlc-root .bom-table tfoot td:first-child { width: auto; }
+  .zlc-root .bom-table tfoot td:last-child { width: auto; }
+}
+
+@media (max-width: 480px) {
+  .zlc-root .app-header .badge { display: none; }
+  .zlc-root .step-item > div:last-child { display: none; }
+  .zlc-root .step-item { padding-inline: 8px; }
+  .zlc-root .presets-grid { grid-template-columns: 1fr; }
+  .zlc-root .zone-row {
+    grid-template-columns: 36px minmax(0, 1fr) auto;
+    padding: 8px;
+  }
+  .zlc-root .actions { flex-wrap: wrap; }
+  .zlc-root .actions > .btn { flex-basis: calc(50% - 4px); }
+  .zlc-root .result-card .kv { grid-template-columns: minmax(0, 1fr) auto; }
+}
+
+/* Fullscreen editor: tablet sizing. */
+@media (max-width: 900px) {
+  .editor-3dsmax { --ed-w-dock: 220px; }
+}
+
+/* Fullscreen editor: phones in portrait and landscape. */
+@media (max-width: 820px), (max-height: 500px) and (max-width: 950px) {
+  .editor-3dsmax {
+    --ed-h-topbar: 50px;
+    --ed-h-toolbar: 44px;
+    --ed-h-statusbar: 36px;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    grid-template-rows:
+      calc(var(--ed-h-topbar) + env(safe-area-inset-top, 0px))
+      var(--ed-h-toolbar)
+      minmax(0, 1fr)
+      calc(var(--ed-h-statusbar) + env(safe-area-inset-bottom, 0px));
+    font-size: 13px;
+  }
+  .editor-3dsmax .ed-topbar {
+    height: auto;
+    min-width: 0;
+    gap: 4px;
+    padding: env(safe-area-inset-top, 0px) 6px 0;
+    overflow: hidden;
+  }
+  .editor-3dsmax .ed-topbar-brand {
+    flex: 0 0 auto;
+    margin: 0 2px 0 0;
+    white-space: nowrap;
+  }
+  .editor-3dsmax .ed-menu { display: none; }
+  .editor-3dsmax .ed-topbar-btn {
+    min-width: 40px;
+    min-height: 40px;
+    margin-left: 0;
+    padding: 6px 8px;
+    font-size: 11px;
+    white-space: nowrap;
+  }
+  .editor-3dsmax .ed-topbar-btn.close { display: none; }
+  .editor-3dsmax .ed-mobile-save {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+  }
+  .editor-3dsmax .ed-toolbar {
+    height: var(--ed-h-toolbar);
+    padding: 3px 6px;
+    gap: 5px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .editor-3dsmax .ed-toolbar::-webkit-scrollbar { display: none; }
+  .editor-3dsmax .ed-tool-btn {
+    flex: 0 0 auto;
+    min-width: 38px;
+    height: 36px;
+    padding-inline: 10px;
+    font-size: 12px;
+  }
+  .editor-3dsmax .ed-tool-divider { flex: 0 0 1px; }
+  .editor-3dsmax .ed-body,
+  .editor-3dsmax .ed-body.left-collapsed,
+  .editor-3dsmax .ed-body.right-collapsed,
+  .editor-3dsmax .ed-body.both-collapsed {
+    display: block;
+    position: relative;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+  }
+  .editor-3dsmax .ed-viewport {
+    position: absolute;
+    inset: 0;
+    min-width: 0;
+    min-height: 0;
+  }
+  .editor-3dsmax .ed-panel {
+    position: absolute;
+    z-index: 30;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: auto;
+    max-height: min(62dvh, 540px);
+    min-height: min(240px, 45dvh);
+    border: 0;
+    border-top: 1px solid var(--ed-accent-dim);
+    border-radius: 12px 12px 0 0;
+    box-shadow: 0 -12px 32px rgba(0,0,0,0.5);
+    overscroll-behavior: contain;
+  }
+  .editor-3dsmax .ed-panel.right { z-index: 31; border-left: 0; border-top: 1px solid var(--ed-accent-dim); }
+  .editor-3dsmax .ed-body.left-collapsed .ed-panel.left,
+  .editor-3dsmax .ed-body.right-collapsed .ed-panel.right,
+  .editor-3dsmax .ed-body.both-collapsed .ed-panel.left,
+  .editor-3dsmax .ed-body.both-collapsed .ed-panel.right { display: none; }
+  /* Сетка безопасности: свёрнутая панель НИКОГДА не должна занимать экран,
+     независимо от JS-классов тела и matchMedia. Класс .collapsed ставит сам
+     редактор, поэтому прячем даже пустые/со старым маркером панели. */
+  .editor-3dsmax .ed-panel.collapsed { display: none !important; }
+  .editor-3dsmax .ed-panel:empty { display: none; }
+  .editor-3dsmax .ed-panel-collapsed { display: none; }
+  .editor-3dsmax .ed-panel-header {
+    flex: 0 0 44px;
+    height: 44px;
+    padding: 0 12px;
+    font-size: 12px;
+    border-radius: 12px 12px 0 0;
+  }
+  .editor-3dsmax .ed-panel-collapse {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+  .editor-3dsmax .ed-panel-body {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .editor-3dsmax .ed-palette-tabs {
+    flex: 0 0 auto;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .editor-3dsmax .ed-palette-tabs::-webkit-scrollbar { display: none; }
+  .editor-3dsmax .ed-palette-tab {
+    flex: 0 0 auto;
+    min-width: 120px;
+    min-height: 42px;
+    padding: 10px 8px;
+  }
+  .editor-3dsmax .ed-palette-filter { min-height: 44px; }
+  .editor-3dsmax .ed-mini-btn { min-width: 44px; min-height: 36px; }
+  .editor-3dsmax .ed-palette-search,
+  .editor-3dsmax .ed-input,
+  .editor-3dsmax .ed-select { min-height: 44px; font-size: 16px; }
+  .editor-3dsmax .ed-palette-item {
+    grid-template-columns: 42px minmax(0, 1fr) auto;
+    min-height: 68px;
+    padding: 9px;
+    cursor: default;
+  }
+  .editor-3dsmax .ed-palette-icon { width: 42px; height: 42px; }
+  .editor-3dsmax .ed-palette-actions { gap: 4px; }
+  .editor-3dsmax .ed-palette-add {
+    min-width: 86px;
+    min-height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    font-size: 14px;
+  }
+  .editor-3dsmax .ed-palette-add-label { display: inline; font-size: 11px; }
+  .editor-3dsmax .ed-rollout-header { min-height: 44px; padding: 9px 12px; font-size: 13px; }
+  .editor-3dsmax .ed-rollout-body { padding: 10px 8px 14px; }
+  .editor-3dsmax .ed-prop-row {
+    grid-template-columns: minmax(100px, 0.8fr) minmax(0, 1.2fr);
+    min-height: 44px;
+    padding: 6px 10px;
+    font-size: 13px;
+  }
+  .editor-3dsmax .ed-range { min-height: 44px; }
+  .editor-3dsmax .ed-angle-preset,
+  .editor-3dsmax .ed-btn { min-height: 44px; font-size: 13px; }
+  .editor-3dsmax .ed-viewport-label { top: 7px; left: 7px; }
+  .editor-3dsmax .ed-viewport-nav { top: 7px; right: 7px; gap: 6px; }
+  .editor-3dsmax .ed-nav-btn { width: 44px; height: 44px; font-size: 20px; }
+  .editor-3dsmax .ed-desktop-hints { display: none; }
+  .editor-3dsmax .ed-mobile-hints { display: block; }
+  .editor-3dsmax .ed-viewport-hint {
+    left: 7px;
+    right: 58px;
+    bottom: 7px;
+    width: auto;
+    padding: 5px 8px;
+    font-size: 10px;
+    line-height: 1.35;
+  }
+  .editor-3dsmax .ed-statusbar {
+    height: auto;
+    min-width: 0;
+    gap: 6px;
+    padding: 3px 6px env(safe-area-inset-bottom, 0px);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .editor-3dsmax .ed-statusbar::-webkit-scrollbar { display: none; }
+  .editor-3dsmax .ed-status-item { flex: 0 0 auto; padding-inline: 5px; }
+  .editor-3dsmax .ed-status-price {
+    position: sticky;
+    right: 0;
+    flex: 0 0 auto;
+    white-space: nowrap;
+    box-shadow: -8px 0 10px var(--ed-bg-panel);
+  }
+}
+
+@media (max-width: 520px) {
+  .editor-3dsmax .ed-brand-full { display: none; }
+  .editor-3dsmax .ed-brand-icon { margin: 0; font-size: 18px; }
+  .editor-3dsmax .ed-topbar-spacer { min-width: 0; }
+}
+
+@media (max-width: 360px) {
+  .editor-3dsmax .ed-topbar { gap: 2px; padding-inline: 4px; }
+  .editor-3dsmax .ed-topbar-btn { padding-inline: 5px; font-size: 10px; }
+  .editor-3dsmax .ed-panel-toggle { min-width: 68px; }
+  .editor-3dsmax .ed-palette-add { min-width: 76px; }
+  .editor-3dsmax .ed-viewport-hint { display: none; }
+}
+
+/* Низкий landscape-экран: оставляем максимум высоты плану. */
+@media (max-height: 500px) and (max-width: 950px) {
+  .editor-3dsmax {
+    --ed-h-topbar: 44px;
+    --ed-h-toolbar: 40px;
+    --ed-h-statusbar: 32px;
+  }
+  .editor-3dsmax .ed-topbar-btn { min-height: 36px; }
+  .editor-3dsmax .ed-tool-btn { height: 34px; }
+  .editor-3dsmax .ed-panel {
+    min-height: 0;
+    max-height: min(76dvh, 360px);
+  }
+  .editor-3dsmax .ed-viewport-hint { display: none; }
+}
+
+/* ============================================================
+   Витрина «🏆 Популярные проекты» (Топ-12, v2.0) — под пресетами
+   ============================================================ */
+
+.zlc-root .top-projects {
+  margin-top: 24px;
+}
+
+.zlc-root .tp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.zlc-root .tp-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+
+.zlc-root .tp-card:hover {
+  border-color: var(--brand);
+  box-shadow: var(--shadow);
+  transform: translateY(-2px);
+}
+
+.zlc-root .tp-rank {
+  position: absolute;
+  top: -9px;
+  left: 10px;
+  z-index: 1;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  padding: 4px 8px;
+  color: var(--text);
+}
+
+.zlc-root .tp-plan-host {
+  border-radius: calc(var(--radius) - 3px);
+  overflow: hidden;
+  background: #f1f5f9;
+}
+
+.zlc-root .tp-plan {
+  display: block;
+  width: 100%;
+  height: 128px;
+}
+
+.zlc-root .tp-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin-top: 2px;
+}
+
+.zlc-root .tp-budget {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--brand);
+}
+
+.zlc-root .tp-stats {
+  font-size: 11px;
+  color: var(--muted, #737373);
+}
+
+.zlc-root .tp-stars {
+  display: flex;
+  gap: 2px;
+}
+
+.zlc-root .tp-star {
+  appearance: none;
+  border: none;
+  background: none;
+  padding: 0;
+  font-size: 19px;
+  line-height: 1;
+  color: #cbd5e1;
+  cursor: pointer;
+  transition: color 0.1s, transform 0.1s;
+}
+
+.zlc-root .tp-star:hover,
+.zlc-root .tp-star.preview,
+.zlc-root .tp-star.filled {
+  color: #f59e0b;
+}
+
+.zlc-root .tp-star.mine {
+  color: #d97706;
+  text-shadow: 0 0 1px #b45309;
+}
+
+.zlc-root .tp-star:active {
+  transform: scale(1.15);
+}
+
+.zlc-root .tp-open {
+  margin-top: auto;
+}
+
+@media (max-width: 600px) {
+  .zlc-root .tp-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 8px;
+  }
+  .zlc-root .tp-plan { height: 96px; }
+  .zlc-root .tp-title { font-size: 12px; }
+  .zlc-root .tp-stats { font-size: 10px; }
+  .zlc-root .tp-star { font-size: 17px; }
+}
